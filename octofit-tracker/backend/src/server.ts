@@ -3,9 +3,18 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import routes from './routes';
-import { getApiBaseUrl } from './utils/url';
 
 dotenv.config();
+
+function getApiBaseUrl() {
+  const codespaceName = process.env.CODESPACE_NAME;
+
+  if (codespaceName) {
+    return `https://${codespaceName}-8000.app.github.dev`;
+  }
+
+  return 'http://localhost:8000';
+}
 
 const app = express();
 const port = Number(process.env.PORT || 8000);
