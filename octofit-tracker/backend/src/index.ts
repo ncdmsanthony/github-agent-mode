@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import routes from './routes';
+import { getApiBaseUrl } from './utils/url';
 
 dotenv.config();
 
@@ -16,6 +18,12 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'OctoFit backend is running' });
 });
 
+app.get('/api/base-url', (_req, res) => {
+  res.json({ baseUrl: getApiBaseUrl() });
+});
+
+app.use('/api', routes);
+
 async function startServer() {
   try {
     await mongoose.connect(mongoUri);
@@ -23,6 +31,7 @@ async function startServer() {
 
     app.listen(port, '0.0.0.0', () => {
       console.log(`Backend listening on port ${port}`);
+      console.log(`API base URL: ${getApiBaseUrl()}`);
     });
   } catch (error) {
     console.error('Failed to start server', error);
