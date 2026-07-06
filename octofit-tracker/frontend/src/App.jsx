@@ -1,54 +1,77 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
 
-function App() {
+export default function App() {
   return (
-    <main className="app-shell">
-      <section className="hero-card card shadow-sm">
-        <div className="card-body p-4 p-md-5">
-          <p className="text-uppercase fw-semibold text-primary mb-2">OctoFit Tracker</p>
-          <h1 className="display-5 fw-bold mb-3">Train smarter with a connected fitness experience.</h1>
-          <p className="lead text-muted mb-4">
-            Track workouts, manage teams, and challenge your community from one modern app.
-          </p>
-          <div className="d-flex flex-wrap gap-3">
-            <a className="btn btn-primary btn-lg" href="https://vite.dev/" target="_blank" rel="noreferrer">
-              Explore the stack
-            </a>
-            <a className="btn btn-outline-secondary btn-lg" href="https://react.dev/" target="_blank" rel="noreferrer">
-              Learn React 19
-            </a>
+    <Router>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">
+            Octofit Tracker
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/users">
+                  Users
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/activities">
+                  Activities
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/workouts">
+                  Workouts
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/teams">
+                  Teams
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/leaderboard">
+                  Leaderboard
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
-      </section>
+      </nav>
 
-      <section className="row g-4 mt-2">
-        <article className="col-md-4">
-          <div className="card h-100 shadow-sm">
-            <div className="card-body">
-              <h2 className="h5">Activity tracking</h2>
-              <p className="text-muted">Log runs, lifts, and recovery streaks in one place.</p>
-            </div>
-          </div>
-        </article>
-        <article className="col-md-4">
-          <div className="card h-100 shadow-sm">
-            <div className="card-body">
-              <h2 className="h5">Team goals</h2>
-              <p className="text-muted">Coordinate squads and compare weekly progress.</p>
-            </div>
-          </div>
-        </article>
-        <article className="col-md-4">
-          <div className="card h-100 shadow-sm">
-            <div className="card-body">
-              <h2 className="h5">Leaderboard</h2>
-              <p className="text-muted">Keep motivation high with friendly competition.</p>
-            </div>
-          </div>
-        </article>
-      </section>
-    </main>
+      <main className="container py-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Routes>
+      </main>
+    </Router>
   )
 }
 
-export default App
+function Home() {
+  return (
+    <div className="text-center py-5">
+      <h1 className="display-4">Welcome to Octofit Tracker</h1>
+      <p className="lead">Track your activities, join teams, and compete on the leaderboard</p>
+    </div>
+  )
+}
